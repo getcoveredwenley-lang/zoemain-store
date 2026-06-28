@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZOEMAIN — Life, by your own hand</title>
+<link rel="icon" href="favicon.png">
+<meta name="description" content="ZOEMAIN — heavyweight essentials, made by hand. Est 1804. Life, in full strength.">
+<meta property="og:title" content="ZOEMAIN"><meta property="og:description" content="Heavyweight essentials, made by hand. Est 1804.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600;800&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>__CSS__</style></head><body>
+
+<div id="enter">
+  <div class="door l"><div class="handle"></div></div><div class="door r"><div class="handle"></div></div>
+  <div id="enterInner">
+    <div id="enterLogo"></div>
+    <div class="eyebrow">EST 1804</div>
+    <button class="enterBtn">ENTER</button>
+  </div>
+</div>
+
+<div id="store">
+  <div class="annc">LIMITED RUN OF 100 &middot; NO RESTOCK</div>
+  <nav>
+    <div class="navside left"><a onclick="showView('shop')">SHOP</a><a onclick="showView('shop')">LOOKBOOK</a></div>
+    <div id="navLogo" title="ZOEMAIN" onclick="showView('home')"></div>
+    <div class="navside right"><a onclick="showView('about')">ATELIER</a><span class="cartpill" onclick="openCart()">CART (<span id="cartCount">0</span>)</span><button class="hamb" onclick="toggleMenu()" aria-label="Menu">&#9776;</button></div>
+  </nav>
+  <div class="mmenu" id="mmenu"><a onclick="mnav('shop')">SHOP</a><a onclick="mnav('shop')">LOOKBOOK</a><a onclick="mnav('about')">ATELIER</a><a onclick="mnavCart()">CART</a></div>
+
+  <div class="view active" id="view-home">
+    <section class="hero">
+      <div>
+        <div class="ey"><span class="l"></span><span>NEW IN</span></div>
+        <h1>The Winter <em>Drop.</em></h1>
+        <p>Heavyweight essentials in considered cuts. Yours to wear, your way.</p>
+        <div class="btns"><button class="btn teal" onclick="showView('shop')">SHOP THE DROP</button><button class="btn out" onclick="showView('shop')">LOOKBOOK →</button></div>
+      </div>
+      <div class="heroCard"><span class="badge b-new">NEW</span><img src="__HERO__" alt="Zoemain hoodie"></div>
+    </section>
+    <section class="shop">
+      <div class="shead"><h2>The lineup</h2><span class="m">5 PIECES</span></div>
+      <div class="grid">__HOME_CARDS__</div>
+    </section>
+    <section class="edi">
+      <div class="in">
+        <div class="k">— THE ZOEMAIN WORKSHOP</div>
+        <blockquote>We make a few things — and we make them <em>to keep.</em></blockquote>
+        <div class="by">MADE BY HAND</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="view" id="view-shop">
+    <section class="shop">
+      <div class="shead"><h2>The Collection</h2><span class="m">FW / 25</span></div>
+      <div class="filters">
+        <button class="fchip on" onclick="filterCat('all',this)">ALL</button>
+        <button class="fchip" onclick="filterCat('Hoodies',this)">HOODIES</button>
+        <button class="fchip" onclick="filterCat('Tops',this)">TOPS</button>
+        <button class="fchip" onclick="filterCat('Jewelry',this)">JEWELRY</button>
+      </div>
+      <div class="grid" id="shopGrid">__SHOP_CARDS__</div>
+    </section>
+  </div>
+
+  <div class="view" id="view-product">
+    <div class="pd">
+      <div class="pd-img"><span class="badge" id="pdBadge"></span><img id="pdPhoto" alt=""></div>
+      <div class="pd-info">
+        <span class="back" onclick="showView('shop')">&larr; Back to shop</span>
+        <h1 id="pdCode" class="pcode-big"></h1>
+        <div class="pd-price">$<span id="pdPrice"></span></div>
+        <div class="chips" id="pdSizes"><span class="chip" onclick="selSize(this)">S</span><span class="chip on" onclick="selSize(this)">M</span><span class="chip" onclick="selSize(this)">L</span><span class="chip" onclick="selSize(this)">XL</span></div>
+        <div class="btns"><button class="btn gold" onclick="addCurrentToCart()">ADD TO CART</button></div>
+        <button class="details-toggle" onclick="toggleDetails()">DETAILS <span id="dtArrow">+</span></button>
+        <div class="details-panel" id="detailsPanel">
+          <div class="dl-name" id="pdName"></div>
+          <p class="dl-copy" id="pdDesc"></p>
+          <div class="dl-specs">
+            <div class="dl-spec"><span class="dl-lab">Material</span><span class="dl-val" id="pdMaterial"></span></div>
+            <div class="dl-spec"><span class="dl-lab">Fit</span><span class="dl-val" id="pdFit"></span></div>
+          </div>
+          <div class="dl-code" id="pdMeaning"></div>
+          <a class="dl-size" id="dlSize" href="sizeguide.html" target="_blank">Size guide &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view" id="view-about">
+    <div class="about-hero"><div class="est">EST 1804</div><h1>ATELIER</h1><div class="sub">Life, by your own hand.</div></div>
+    <div class="ab">
+      <div class="kick">The name</div><h2>Two words. One belief.</h2>
+      <div class="define">
+        <div class="def"><div class="w">Zoe</div><div class="o">Greek · ζωή</div><p style="margin:0;">Life. Not survival — life lived fully, on your own terms.</p></div>
+        <div class="def"><div class="w">Main</div><div class="o">English · strength, force</div><p style="margin:0;">Might and main — full strength. And the main thing: what you live by.</p></div>
+      </div>
+      <div class="equation">Zoe + Main — <span style="color:var(--gold);">life, in full strength.</span></div>
+    </div>
+    <div class="ab">
+      <div class="kick">The origin · 1804</div><h2>Born of 1804.</h2>
+      <p>1804 is where the house begins — a year that stands for self-determination and building a life with your own hands.</p>
+      <p>ZOEMAIN carries that year not as decoration, but as a creed: a life worth living is one you make yourself — deliberate, considered, and unafraid. Wherever you're from, if you build your life by your own hand, this is yours.</p>
+      <h3>Heritage with a pulse — made for everyday.</h3>
+    </div>
+    <div class="manif"><div class="in">
+      <div class="kick">The manifesto</div>
+      <p>We believe a life worth living is one you make with your <em>own hands.</em></p>
+      <p>We believe in pieces <em>worth keeping</em> — made to outlast the season.</p>
+      <p>We believe luxury is <em>freedom</em> — yours to wear exactly your way.</p>
+      <p>Born of 1804. Made by hand. Worn for life.</p>
+    </div></div>
+    <div class="pillars">
+      <div class="pil"><div class="n">01 · STRENGTH</div><h4>Self-determination</h4><p>For people who live on their own terms.</p></div>
+      <div class="pil"><div class="n">02 · CRAFT</div><h4>Made to outlast</h4><p>Heavyweight, hand-finished, built to be lived in for years.</p></div>
+      <div class="pil"><div class="n">03 · EXPRESSION</div><h4>Live fully</h4><p>Worn your way, worn freely, worn loud or quiet.</p></div>
+      <div class="pil"><div class="n">04 · DIGNITY</div><h4>Quiet confidence</h4><p>Felt, not just seen. Confidence you wear your way.</p></div>
+    </div>
+  </div>
+
+  <section class="news"><div class="newsin">
+    <div class="newst"><div class="k2">STAY IN</div><p>First access to drops and the story. No noise.</p></div>
+    <form class="newsf" onsubmit="return subscribe(event)"><input type="email" id="newsEmail" placeholder="your@email.com" required><button type="submit">JOIN</button></form>
+  </div></section>
+  <footer>
+    <div class="fin">
+      <div>
+        <div class="wordmark"><span class="zoe">Zoe</span>main</div>
+        <div class="mono" style="font-size:11px;color:#8a8675;margin-top:8px;">EST 1804 · zoemain.fit</div>
+      </div>
+      <div class="fcol"><h4>Shop</h4><a onclick="showView('shop')">New arrivals</a><a onclick="showView('shop')">Hoodies</a><a onclick="showView('shop')">Jewelry</a></div>
+      <div class="fcol"><h4>House</h4><a onclick="showView('about')">Our story</a><a href="contact.html">Contact</a></div>
+      <div class="fcol"><h4>Care</h4><a href="sizeguide.html">Size guide</a><a href="faq.html">FAQ</a><a href="shipping.html">Shipping</a><a href="returns.html">Returns</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="fbottom"><span>© 1804–2026 ZOEMAIN</span><span>FREE RETURNS WITHIN 30 DAYS</span></div>
+  </footer>
+</div>
+
+<div class="cart-ov" id="cartOv" onclick="closeCart()"></div>
+<aside class="drawer" id="cartDrawer">
+  <div class="dh"><h3>YOUR CART</h3><span class="x" onclick="closeCart()">×</span></div>
+  <div class="ditems" id="ditems"></div>
+  <div class="dfoot">
+    <div class="dtot"><span>SUBTOTAL</span><span id="dtotal">$0</span></div>
+    <button class="cobtn" id="cobtn" onclick="checkout()">CHECKOUT</button>
+    <div class="dnote">Secure checkout by Stripe · Shipping &amp; tax at checkout</div>
+  </div>
+</aside>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>__JS__</script>
+</body></html>
