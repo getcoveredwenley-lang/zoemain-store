@@ -31,6 +31,7 @@ module.exports = async (req, res) => {
     const origin = req.headers.origin || `https://${req.headers.host}`;
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
+      payment_method_types: ['card'],
       line_items,
       shipping_address_collection: { allowed_countries: ['US', 'CA'] },
       success_url: `${origin}/success.html`,
