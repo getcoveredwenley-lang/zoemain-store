@@ -31,7 +31,7 @@ def card(p):
             f'data-price="${p["price"]}" data-pricev="{p["price"]}" data-badge="{p["badge"]}" data-bc="{p["bc"]}" '
             f'data-img="{p["img"]}" data-meaning="{p["meaning"]}" data-material="{p["material"]}" data-fit="{p["fit"]}" data-desc="{p["desc"]}" onclick="openProduct(this)">'
             f'<div class="thumb">{badge}<img src="{p["img"]}" alt="{p["code"]}" loading="lazy"></div>'
-            f'<div class="prow"><span class="pname">{p["code"]}</span><span class="pprice">${p["price"]}</span></div>'
+            f'<div class="prow"><span class="pname">{p["code"]}</span></div>'
             f'{chips}</div>')
 home_cards="\n".join(card(p) for p in PRODUCTS[:3])
 shop_cards="\n".join(card(p) for p in PRODUCTS)

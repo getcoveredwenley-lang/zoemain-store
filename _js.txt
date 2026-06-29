@@ -33,7 +33,7 @@ var CURRENT=null;
 var SIZE='M';
 function openProduct(el){var d=el.dataset;CURRENT={id:d.id,name:d.name,price:parseFloat(d.pricev),img:d.img};
   document.getElementById('pdCode').textContent=d.code;
-  document.getElementById('pdPrice').textContent=d.price;
+  document.getElementById('pdPrice').textContent=d.pricev;
   document.getElementById('pdName').textContent=d.name;
   document.getElementById('pdDesc').textContent=d.desc;
   document.getElementById('pdMaterial').textContent=d.material;
