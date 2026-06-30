@@ -65,7 +65,7 @@ function removeItem(key){saveCart(getCart().filter(function(x){return x.key!==ke
 function cartCount(){return getCart().reduce(function(n,x){return n+x.qty;},0);}
 function cartTotal(){return getCart().reduce(function(n,x){return n+x.price*x.qty;},0);}
 function renderCart(){
-  var c=getCart();var el=document.getElementById('cartCount');if(el)el.textContent=cartCount();
+  var c=getCart();var el=document.getElementById('cartCount');if(el){var _n=cartCount();el.textContent=_n;el.style.display=_n>0?'':'none';}
   var box=document.getElementById('ditems');
   if(!c.length){box.innerHTML='<div class="empty">Your cart is empty.</div>';}
   else{box.innerHTML=c.map(function(x){return '<div class="di"><img src="'+x.img+'" alt=""><div class="info"><div class="nm">'+x.name+'</div><div class="pr">$'+x.price+(x.size?' \u00b7 '+x.size:'')+'</div><div class="qrow"><button class="qbtn" onclick="setQty(\''+x.key+'\',-1)">-</button><span>'+x.qty+'</span><button class="qbtn" onclick="setQty(\''+x.key+'\',1)">+</button><span class="rm" onclick="removeItem(\''+x.key+'\')">REMOVE</span></div></div></div>';}).join('');}
@@ -88,6 +88,10 @@ function toggleMenu(){document.getElementById('mmenu').classList.toggle('open');
 function closeMenu(){var m=document.getElementById('mmenu');if(m)m.classList.remove('open');}
 function mnav(v){showView(v);closeMenu();}
 function mnavCart(){closeMenu();openCart();}
+function doSearch(e){if(e)e.preventDefault();var q=((document.getElementById('msearchInput')||{}).value||'').trim().toLowerCase();
+  document.querySelectorAll('#shopGrid .card').forEach(function(c){var d=c.dataset;var hit=!q||(d.name+' '+d.code+' '+d.cat).toLowerCase().indexOf(q)>-1;c.style.display=hit?'':'none';});
+  document.querySelectorAll('.fchip').forEach(function(f){f.classList.remove('on');});var ac=document.querySelector('.fchip');if(ac)ac.classList.add('on');
+  showView('shop');closeMenu();return false;}
 
 /* ---------------- NEWSLETTER ---------------- */
 function subscribe(e){e.preventDefault();var inp=document.getElementById('newsEmail');var email=inp.value.trim();

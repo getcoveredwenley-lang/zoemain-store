@@ -35,7 +35,15 @@ nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-con
 .navside a{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;cursor:pointer;}
 .navside a:hover{color:var(--teal);}
 #navLogo{width:50px;height:50px;flex:0 0 auto;cursor:pointer;}
-.cartpill{border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:11px;letter-spacing:2px;font-family:'Space Mono',monospace;cursor:pointer;}
+.cartbtn{position:relative;background:none;border:none;cursor:pointer;color:var(--ink);padding:2px;display:inline-flex;align-items:center;line-height:0;}
+.cartbtn svg{width:23px;height:23px;}
+.cartbtn:hover{color:var(--teal);}
+.cartdot{position:absolute;top:-5px;right:-6px;min-width:16px;height:16px;padding:0 3px;border-radius:9px;background:var(--teal);color:var(--cream);font-family:'Space Mono',monospace;font-size:10px;line-height:16px;text-align:center;box-sizing:border-box;}
+.msearch{display:flex;gap:8px;padding:14px 30px;border-top:1px solid var(--line);}
+.msearch input{flex:1;min-width:0;padding:11px 14px;border:1px solid var(--line);border-radius:6px;background:var(--card);font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;color:var(--ink);}
+.msearch input::placeholder{color:#8a8675;}
+.msearch button{background:var(--teal);border:none;border-radius:6px;padding:0 14px;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;}
+.msearch button svg{width:16px;height:16px;}
 .view{display:none;}.view.active{display:block;}
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;max-width:1180px;margin:0 auto;padding:60px 30px 50px;}
 .hero .ey{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
@@ -143,7 +151,7 @@ footer{background:var(--cream);padding:56px 30px 40px;border-top:1px solid var(-
 .cobtn{width:100%;background:var(--teal);color:var(--cream);border:none;padding:15px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:3px;cursor:pointer;border-radius:4px;}
 .cobtn:disabled{opacity:.5;cursor:not-allowed;}
 .dnote{text-align:center;font-size:10px;letter-spacing:1px;color:#8a8675;margin-top:10px;font-family:'Space Mono',monospace;}
-@media(max-width:760px){.hero{grid-template-columns:1fr;}.pd{grid-template-columns:1fr;}.navside a{display:none;}nav{padding:12px 16px;}#navLogo{width:40px;height:40px;}.cartpill{padding:5px 10px;font-size:10px;letter-spacing:1px;}.hamb{margin-left:10px;font-size:20px;}}
+@media(max-width:760px){.hero{grid-template-columns:1fr;}.pd{grid-template-columns:1fr;}.navside a{display:none;}nav{padding:12px 16px;}#navLogo{width:40px;height:40px;}.hamb{margin-left:10px;font-size:20px;}.grid{grid-template-columns:1fr 1fr;gap:14px;}.card .chips{display:none;}.shop{padding:24px 16px 16px;}.shead h2{font-size:22px;}}
 .annc{background:var(--ink);color:var(--cream);text-align:center;padding:8px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;}
 .hamb{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink);margin-left:14px;line-height:1;}
 .mmenu{display:none;flex-direction:column;background:var(--cream);border-bottom:1px solid var(--line);}
@@ -186,9 +194,9 @@ footer{background:var(--cream);padding:56px 30px 40px;border-top:1px solid var(-
   <nav>
     <div class="navside left"><a onclick="showView('shop')">SHOP</a><a onclick="showView('shop')">LOOKBOOK</a></div>
     <div id="navLogo" title="ZOEMAIN" onclick="showView('home')"></div>
-    <div class="navside right"><a onclick="showView('about')">ATELIER</a><span class="cartpill" onclick="openCart()">CART (<span id="cartCount">0</span>)</span><button class="hamb" onclick="toggleMenu()" aria-label="Menu">&#9776;</button></div>
+    <div class="navside right"><a onclick="showView('about')">ATELIER</a><button class="cartbtn" onclick="openCart()" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="cartdot" id="cartCount">0</span></button><button class="hamb" onclick="toggleMenu()" aria-label="Menu">&#9776;</button></div>
   </nav>
-  <div class="mmenu" id="mmenu"><a onclick="mnav('shop')">SHOP</a><a onclick="mnav('shop')">LOOKBOOK</a><a onclick="mnav('about')">ATELIER</a><a onclick="mnavCart()">CART</a></div>
+  <div class="mmenu" id="mmenu"><form class="msearch" onsubmit="return doSearch(event)"><input id="msearchInput" type="search" placeholder="Search pieces&hellip;" autocomplete="off"><button type="submit" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg></button></form><a onclick="mnav('shop')">SHOP</a><a onclick="mnav('shop')">LOOKBOOK</a><a onclick="mnav('about')">ATELIER</a></div>
 
   <div class="view active" id="view-home">
     <section class="hero">
@@ -385,7 +393,7 @@ function removeItem(key){saveCart(getCart().filter(function(x){return x.key!==ke
 function cartCount(){return getCart().reduce(function(n,x){return n+x.qty;},0);}
 function cartTotal(){return getCart().reduce(function(n,x){return n+x.price*x.qty;},0);}
 function renderCart(){
-  var c=getCart();var el=document.getElementById('cartCount');if(el)el.textContent=cartCount();
+  var c=getCart();var el=document.getElementById('cartCount');if(el){var _n=cartCount();el.textContent=_n;el.style.display=_n>0?'':'none';}
   var box=document.getElementById('ditems');
   if(!c.length){box.innerHTML='<div class="empty">Your cart is empty.</div>';}
   else{box.innerHTML=c.map(function(x){return '<div class="di"><img src="'+x.img+'" alt=""><div class="info"><div class="nm">'+x.name+'</div><div class="pr">$'+x.price+(x.size?' \u00b7 '+x.size:'')+'</div><div class="qrow"><button class="qbtn" onclick="setQty(\''+x.key+'\',-1)">-</button><span>'+x.qty+'</span><button class="qbtn" onclick="setQty(\''+x.key+'\',1)">+</button><span class="rm" onclick="removeItem(\''+x.key+'\')">REMOVE</span></div></div></div>';}).join('');}
@@ -408,6 +416,10 @@ function toggleMenu(){document.getElementById('mmenu').classList.toggle('open');
 function closeMenu(){var m=document.getElementById('mmenu');if(m)m.classList.remove('open');}
 function mnav(v){showView(v);closeMenu();}
 function mnavCart(){closeMenu();openCart();}
+function doSearch(e){if(e)e.preventDefault();var q=((document.getElementById('msearchInput')||{}).value||'').trim().toLowerCase();
+  document.querySelectorAll('#shopGrid .card').forEach(function(c){var d=c.dataset;var hit=!q||(d.name+' '+d.code+' '+d.cat).toLowerCase().indexOf(q)>-1;c.style.display=hit?'':'none';});
+  document.querySelectorAll('.fchip').forEach(function(f){f.classList.remove('on');});var ac=document.querySelector('.fchip');if(ac)ac.classList.add('on');
+  showView('shop');closeMenu();return false;}
 
 /* ---------------- NEWSLETTER ---------------- */
 function subscribe(e){e.preventDefault();var inp=document.getElementById('newsEmail');var email=inp.value.trim();
