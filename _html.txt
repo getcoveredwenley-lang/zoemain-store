@@ -19,11 +19,12 @@
 <div id="store">
   <div class="annc">LIMITED RUN OF 100 &middot; NO RESTOCK</div>
   <nav>
-    <div class="navside left"><a onclick="showView('shop')">SHOP</a><a onclick="showView('shop')">LOOKBOOK</a></div>
+    <div class="navside left"><button class="hamb" onclick="toggleMenu()" aria-label="Menu">&#9776;</button><a onclick="showView('shop')">SHOP</a><a onclick="showView('shop')">LOOKBOOK</a></div>
     <div id="navLogo" title="ZOEMAIN" onclick="showView('home')"></div>
-    <div class="navside right"><a onclick="showView('about')">ATELIER</a><button class="cartbtn" onclick="openCart()" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="cartdot" id="cartCount">0</span></button><button class="hamb" onclick="toggleMenu()" aria-label="Menu">&#9776;</button></div>
+    <div class="navside right"><a onclick="showView('about')">ATELIER</a><button class="searchbtn" onclick="toggleSearch()" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg></button><button class="cartbtn" onclick="openCart()" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="cartdot" id="cartCount">0</span></button></div>
   </nav>
   <div class="mmenu" id="mmenu"><form class="msearch" onsubmit="return doSearch(event)"><input id="msearchInput" type="search" placeholder="Search pieces&hellip;" autocomplete="off"><button type="submit" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg></button></form><a onclick="mnav('shop')">SHOP</a><a onclick="mnav('shop')">LOOKBOOK</a><a onclick="mnav('about')">ATELIER</a></div>
+  <div class="searchbar" id="searchBar"><form onsubmit="return doSearch(event,'dsearchInput')"><input id="dsearchInput" type="search" placeholder="Search pieces&hellip;" autocomplete="off"><button type="submit" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg></button></form></div>
 
   <div class="view active" id="view-home">
     <section class="hero">

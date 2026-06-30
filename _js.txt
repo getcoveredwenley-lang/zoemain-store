@@ -88,10 +88,12 @@ function toggleMenu(){document.getElementById('mmenu').classList.toggle('open');
 function closeMenu(){var m=document.getElementById('mmenu');if(m)m.classList.remove('open');}
 function mnav(v){showView(v);closeMenu();}
 function mnavCart(){closeMenu();openCart();}
-function doSearch(e){if(e)e.preventDefault();var q=((document.getElementById('msearchInput')||{}).value||'').trim().toLowerCase();
+function doSearch(e,id){if(e)e.preventDefault();var q=((document.getElementById(id||'msearchInput')||{}).value||'').trim().toLowerCase();
   document.querySelectorAll('#shopGrid .card').forEach(function(c){var d=c.dataset;var hit=!q||(d.name+' '+d.code+' '+d.cat).toLowerCase().indexOf(q)>-1;c.style.display=hit?'':'none';});
   document.querySelectorAll('.fchip').forEach(function(f){f.classList.remove('on');});var ac=document.querySelector('.fchip');if(ac)ac.classList.add('on');
-  showView('shop');closeMenu();return false;}
+  showView('shop');closeMenu();closeSearch();return false;}
+function toggleSearch(){var s=document.getElementById('searchBar');if(!s)return;s.classList.toggle('open');if(s.classList.contains('open')){var i=document.getElementById('dsearchInput');if(i)i.focus();}}
+function closeSearch(){var s=document.getElementById('searchBar');if(s)s.classList.remove('open');}
 
 /* ---------------- NEWSLETTER ---------------- */
 function subscribe(e){e.preventDefault();var inp=document.getElementById('newsEmail');var email=inp.value.trim();
