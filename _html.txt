@@ -147,6 +147,18 @@
   </div>
 </aside>
 
+<div class="popup" id="popup">
+  <div class="popup-ov" onclick="closePopup()"></div>
+  <div class="popup-card">
+    <button class="popup-x" onclick="closePopup()" aria-label="Close">&times;</button>
+    <div class="popup-k">THE LIST</div>
+    <h3 class="popup-h">First to the drop.</h3>
+    <p class="popup-p">Limited runs of 100. No restock. Join for early access and the 1804 story &mdash; nothing else.</p>
+    <form class="popup-f" onsubmit="return subscribe(event,'popupEmail')"><input id="popupEmail" type="email" placeholder="your@email.com" required><button type="submit">JOIN</button></form>
+    <div class="popup-fine">No noise. Unsubscribe anytime.</div>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>__JS__</script>
 </body></html>

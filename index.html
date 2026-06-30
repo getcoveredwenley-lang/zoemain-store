@@ -54,6 +54,21 @@ nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-con
 .searchbar input::placeholder{color:#8a8675;}
 .searchbar button{background:var(--teal);border:none;border-radius:6px;padding:0 16px;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;}
 .searchbar button svg{width:17px;height:17px;}
+.popup{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:24px;}
+.popup.on{display:flex;}
+.popup-ov{position:absolute;inset:0;background:rgba(23,22,15,.55);}
+.popup-card{position:relative;z-index:1;background:var(--cream);border:1px solid var(--line);border-radius:14px;max-width:420px;width:100%;padding:40px 32px 30px;box-shadow:0 30px 80px rgba(0,0,0,.32);text-align:center;}
+.popup-x{position:absolute;top:12px;right:15px;background:none;border:none;font-size:24px;line-height:1;color:#8a8675;cursor:pointer;}
+.popup-x:hover{color:var(--ink);}
+.popup-k{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--gold);}
+.popup-h{font-family:'Inter';font-weight:800;font-size:28px;letter-spacing:-.5px;margin:12px 0 10px;color:var(--ink);}
+.popup-p{font-size:14px;color:#46453c;line-height:1.6;margin-bottom:22px;}
+.popup-f{display:flex;gap:8px;}
+.popup-f input{flex:1;min-width:0;padding:13px 15px;border:1px solid var(--line);border-radius:6px;background:#fff;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;color:var(--ink);}
+.popup-f input::placeholder{color:#9b9684;}
+.popup-f button{background:var(--teal);color:var(--cream);border:none;border-radius:6px;padding:0 22px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;cursor:pointer;}
+.popup-f button:hover{background:var(--teal2);}
+.popup-fine{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:#8a8675;margin-top:14px;}
 .view{display:none;}.view.active{display:block;}
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;max-width:1180px;margin:0 auto;padding:60px 30px 50px;}
 .hero .ey{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
@@ -336,6 +351,18 @@ footer{background:var(--cream);padding:56px 30px 40px;border-top:1px solid var(-
   </div>
 </aside>
 
+<div class="popup" id="popup">
+  <div class="popup-ov" onclick="closePopup()"></div>
+  <div class="popup-card">
+    <button class="popup-x" onclick="closePopup()" aria-label="Close">&times;</button>
+    <div class="popup-k">THE LIST</div>
+    <h3 class="popup-h">First to the drop.</h3>
+    <p class="popup-p">Limited runs of 100. No restock. Join for early access and the 1804 story &mdash; nothing else.</p>
+    <form class="popup-f" onsubmit="return subscribe(event,'popupEmail')"><input id="popupEmail" type="email" placeholder="your@email.com" required><button type="submit">JOIN</button></form>
+    <div class="popup-fine">No noise. Unsubscribe anytime.</div>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>function makeLogo(host,layers,mode){
   if(typeof THREE==="undefined"){return setTimeout(function(){makeLogo(host,layers,mode);},60);}
@@ -365,7 +392,7 @@ footer{background:var(--cream);padding:56px 30px 40px;border-top:1px solid var(-
 }
 makeLogo(document.getElementById("enterLogo"),110,"shiny");
 makeLogo(document.getElementById("navLogo"),50,"matte");
-document.getElementById("enter").addEventListener("click",function(e){if(e.target.closest("#enterInner")||e.target.classList.contains("enterBtn")||e.target.id==="enter"){document.body.classList.add("open");}});
+document.getElementById("enter").addEventListener("click",function(e){if(e.target.closest("#enterInner")||e.target.classList.contains("enterBtn")||e.target.id==="enter"){document.body.classList.add("open");setTimeout(showPopup,30000);}});
 
 function showView(n){document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});var el=document.getElementById('view-'+n);if(el)el.classList.add('active');window.scrollTo(0,0);}
 var CURRENT=null;
@@ -435,12 +462,15 @@ function toggleSearch(){var s=document.getElementById('searchBar');if(!s)return;
 function closeSearch(){var s=document.getElementById('searchBar');if(s)s.classList.remove('open');}
 
 /* ---------------- NEWSLETTER ---------------- */
-function subscribe(e){e.preventDefault();var inp=document.getElementById('newsEmail');var email=inp.value.trim();
+function subscribe(e,id){e.preventDefault();var inp=document.getElementById(id||'newsEmail');var email=inp.value.trim();
   fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email})})
-    .then(function(r){return r.json();}).then(function(d){if(d.ok){inp.value='';inp.placeholder='Thank you. You are in.';}else{inp.placeholder=d.error||'Try again';}})
+    .then(function(r){return r.json();}).then(function(d){if(d.ok){inp.value='';inp.placeholder='Thank you. You are in.';try{localStorage.setItem('zoemain_sub','1');}catch(_e){}if(id==='popupEmail'){var ph=document.querySelector('.popup-h');if(ph)ph.textContent='You’re in.';setTimeout(closePopup,1400);}}else{inp.placeholder=d.error||'Try again';}})
     .catch(function(){inp.value='';inp.placeholder='Will work once live.';});
   return false;
 }
+function popupSeen(){try{return localStorage.getItem('zoemain_popup')||localStorage.getItem('zoemain_sub');}catch(e){return true;}}
+function showPopup(){if(popupSeen())return;var p=document.getElementById('popup');if(p)p.classList.add('on');}
+function closePopup(){var p=document.getElementById('popup');if(p)p.classList.remove('on');try{localStorage.setItem('zoemain_popup','1');}catch(e){}}
 
 renderCart();
 if(location.search.indexOf('canceled=1')>-1){setTimeout(function(){document.body.classList.add('open');},300);}

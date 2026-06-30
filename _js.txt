@@ -26,7 +26,7 @@ function makeLogo(host,layers,mode){
 }
 makeLogo(document.getElementById("enterLogo"),110,"shiny");
 makeLogo(document.getElementById("navLogo"),50,"matte");
-document.getElementById("enter").addEventListener("click",function(e){if(e.target.closest("#enterInner")||e.target.classList.contains("enterBtn")||e.target.id==="enter"){document.body.classList.add("open");}});
+document.getElementById("enter").addEventListener("click",function(e){if(e.target.closest("#enterInner")||e.target.classList.contains("enterBtn")||e.target.id==="enter"){document.body.classList.add("open");setTimeout(showPopup,30000);}});
 
 function showView(n){document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});var el=document.getElementById('view-'+n);if(el)el.classList.add('active');window.scrollTo(0,0);}
 var CURRENT=null;
@@ -96,12 +96,15 @@ function toggleSearch(){var s=document.getElementById('searchBar');if(!s)return;
 function closeSearch(){var s=document.getElementById('searchBar');if(s)s.classList.remove('open');}
 
 /* ---------------- NEWSLETTER ---------------- */
-function subscribe(e){e.preventDefault();var inp=document.getElementById('newsEmail');var email=inp.value.trim();
+function subscribe(e,id){e.preventDefault();var inp=document.getElementById(id||'newsEmail');var email=inp.value.trim();
   fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email})})
-    .then(function(r){return r.json();}).then(function(d){if(d.ok){inp.value='';inp.placeholder='Thank you. You are in.';}else{inp.placeholder=d.error||'Try again';}})
+    .then(function(r){return r.json();}).then(function(d){if(d.ok){inp.value='';inp.placeholder='Thank you. You are in.';try{localStorage.setItem('zoemain_sub','1');}catch(_e){}if(id==='popupEmail'){var ph=document.querySelector('.popup-h');if(ph)ph.textContent='You’re in.';setTimeout(closePopup,1400);}}else{inp.placeholder=d.error||'Try again';}})
     .catch(function(){inp.value='';inp.placeholder='Will work once live.';});
   return false;
 }
+function popupSeen(){try{return localStorage.getItem('zoemain_popup')||localStorage.getItem('zoemain_sub');}catch(e){return true;}}
+function showPopup(){if(popupSeen())return;var p=document.getElementById('popup');if(p)p.classList.add('on');}
+function closePopup(){var p=document.getElementById('popup');if(p)p.classList.remove('on');try{localStorage.setItem('zoemain_popup','1');}catch(e){}}
 
 renderCart();
 if(location.search.indexOf('canceled=1')>-1){setTimeout(function(){document.body.classList.add('open');},300);}

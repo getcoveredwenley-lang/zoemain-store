@@ -47,6 +47,21 @@ nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-con
 .searchbar input::placeholder{color:#8a8675;}
 .searchbar button{background:var(--teal);border:none;border-radius:6px;padding:0 16px;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;}
 .searchbar button svg{width:17px;height:17px;}
+.popup{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:24px;}
+.popup.on{display:flex;}
+.popup-ov{position:absolute;inset:0;background:rgba(23,22,15,.55);}
+.popup-card{position:relative;z-index:1;background:var(--cream);border:1px solid var(--line);border-radius:14px;max-width:420px;width:100%;padding:40px 32px 30px;box-shadow:0 30px 80px rgba(0,0,0,.32);text-align:center;}
+.popup-x{position:absolute;top:12px;right:15px;background:none;border:none;font-size:24px;line-height:1;color:#8a8675;cursor:pointer;}
+.popup-x:hover{color:var(--ink);}
+.popup-k{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--gold);}
+.popup-h{font-family:'Inter';font-weight:800;font-size:28px;letter-spacing:-.5px;margin:12px 0 10px;color:var(--ink);}
+.popup-p{font-size:14px;color:#46453c;line-height:1.6;margin-bottom:22px;}
+.popup-f{display:flex;gap:8px;}
+.popup-f input{flex:1;min-width:0;padding:13px 15px;border:1px solid var(--line);border-radius:6px;background:#fff;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;color:var(--ink);}
+.popup-f input::placeholder{color:#9b9684;}
+.popup-f button{background:var(--teal);color:var(--cream);border:none;border-radius:6px;padding:0 22px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;cursor:pointer;}
+.popup-f button:hover{background:var(--teal2);}
+.popup-fine{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:#8a8675;margin-top:14px;}
 .view{display:none;}.view.active{display:block;}
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;max-width:1180px;margin:0 auto;padding:60px 30px 50px;}
 .hero .ey{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
