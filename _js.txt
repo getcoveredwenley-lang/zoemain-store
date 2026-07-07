@@ -39,7 +39,10 @@ function openProduct(el){var d=el.dataset;CURRENT={id:d.id,name:d.name,price:par
   document.getElementById('pdMaterial').textContent=d.material;
   document.getElementById('pdFit').textContent=d.fit;
   document.getElementById('pdMeaning').textContent=d.meaning;
-  var ph=document.getElementById('pdPhoto');ph.src=d.img;ph.style.display='block';
+  var imgs;try{imgs=JSON.parse(d.imgs);}catch(e){imgs=null;}if(!imgs||!imgs.length){imgs=[d.img];}
+  var ph=document.getElementById('pdPhoto');ph.src=imgs[0];ph.style.display='block';
+  var tb=document.getElementById('pdThumbs');
+  if(imgs.length>1){tb.style.display='flex';tb.innerHTML=imgs.map(function(u,i){return '<img class="pd-th'+(i===0?' on':'')+'" src="'+u+'" alt="" onclick="pdSwap(this,\''+u+'\')">';}).join('');}else{tb.style.display='none';tb.innerHTML='';}
   var b=document.getElementById('pdBadge');if(d.badge){b.style.display='inline-block';b.textContent=d.badge;b.className='badge '+d.bc;}else{b.style.display='none';}
   var isJ=d.cat==='Jewelry';
   document.getElementById('pdSizes').style.display=isJ?'none':'flex';
@@ -48,6 +51,7 @@ function openProduct(el){var d=el.dataset;CURRENT={id:d.id,name:d.name,price:par
   SIZE='M';resetSizeChips();
   showView('product');
 }
+function pdSwap(el,u){document.getElementById('pdPhoto').src=u;var p=el.parentNode;p.querySelectorAll('.pd-th').forEach(function(t){t.classList.remove('on');});el.classList.add('on');}
 function toggleDetails(){var p=document.getElementById('detailsPanel');p.classList.toggle('open');document.getElementById('dtArrow').textContent=p.classList.contains('open')?'\u2212':'+';}
 function filterCat(cat,btn){document.querySelectorAll('#shopGrid .card').forEach(function(c){c.style.display=(cat==='all'||c.dataset.cat===cat)?'':'none';});document.querySelectorAll('.fchip').forEach(function(f){f.classList.remove('on');});btn.classList.add('on');}
 

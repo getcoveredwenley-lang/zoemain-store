@@ -64,7 +64,7 @@
 
   <div class="view" id="view-product">
     <div class="pd">
-      <div class="pd-img"><span class="badge" id="pdBadge"></span><img id="pdPhoto" alt=""></div>
+      <div class="pd-gallery"><div class="pd-img"><span class="badge" id="pdBadge"></span><img id="pdPhoto" alt=""></div><div class="pd-thumbs" id="pdThumbs"></div></div>
       <div class="pd-info">
         <span class="back" onclick="showView('shop')">&larr; Back to shop</span>
         <h1 id="pdCode" class="pcode-big"></h1>

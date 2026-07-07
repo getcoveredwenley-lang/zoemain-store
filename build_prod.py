@@ -1,4 +1,4 @@
-import base64
+import base64, json
 IMG={k:f"img/{k}.jpg" for k in ["greenhoodie","greenback","pinkhoodie","tee","zoe","goat"]}
 HERO=IMG["greenhoodie"]
 PRODUCTS=[
@@ -11,6 +11,7 @@ PRODUCTS=[
   "material":"French terry cotton · soft blush",
   "desc":"The same hood, in a soft blush. Quiet on the rack, loud in the right way."},
  {"id":"bone-tee","code":"ZTB","name":"Heavyweight Tee — Bone","price":50,"cat":"Tops","badge":"NEW","bc":"b-new","img":IMG["tee"],
+  "imgs":["img/tee.jpg","img/tee_model.jpg","img/teeback.jpg","img/tee_modelback.jpg"],
   "meaning":"ZTB — Zoemain · Tee · Bone","fit":"Boxy · dropped shoulder",
   "material":"French terry cotton · bone",
   "desc":"A boxy tee in honest bone cotton. The piece you reach for without thinking."},
@@ -29,7 +30,7 @@ def card(p):
     badge=f'<span class="badge {p["bc"]}">{p["badge"]}</span>' if p["badge"] else ""
     return (f'<div class="card" data-id="{p["id"]}" data-code="{p["code"]}" data-cat="{p["cat"]}" data-name="{p["name"]}" '
             f'data-price="${p["price"]}" data-pricev="{p["price"]}" data-badge="{p["badge"]}" data-bc="{p["bc"]}" '
-            f'data-img="{p["img"]}" data-meaning="{p["meaning"]}" data-material="{p["material"]}" data-fit="{p["fit"]}" data-desc="{p["desc"]}" onclick="openProduct(this)">'
+            f'data-img="{p["img"]}" data-imgs=\'{json.dumps(p.get("imgs") or [p["img"]])}\' data-meaning="{p["meaning"]}" data-material="{p["material"]}" data-fit="{p["fit"]}" data-desc="{p["desc"]}" onclick="openProduct(this)">'
             f'<div class="thumb">{badge}<img src="{p["img"]}" alt="{p["code"]}" loading="lazy"></div>'
             f'<div class="prow"><span class="pname">{p["code"]}</span></div>'
             f'{chips}</div>')
