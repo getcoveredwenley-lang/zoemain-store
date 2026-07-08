@@ -3,6 +3,7 @@ IMG={k:f"img/{k}.jpg" for k in ["greenhoodie","greenback","pinkhoodie","tee","zo
 HERO=IMG["greenhoodie"]
 PRODUCTS=[
  {"id":"green-hoodie","code":"ZHG","name":"Heavyweight Hoodie — Green","price":80,"cat":"Hoodies","badge":"NEW","bc":"b-new","img":IMG["greenhoodie"],
+  "imgs":["img/greenhoodie.jpg","img/greenhoodie_model.jpg","img/greenback.jpg","img/greenhoodie_modelback.jpg"],
   "meaning":"ZHG — Zoemain · Hoodie · Green","fit":"Oversized · structured",
   "material":"French terry cotton · garment-dyed",
   "desc":"A weighty cotton hood that holds its shape and softens with you. The cornerstone of the line."},
