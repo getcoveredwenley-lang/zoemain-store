@@ -70,6 +70,9 @@ nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-con
 .popup-f button:hover{background:var(--teal2);}
 .popup-fine{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:#8a8675;margin-top:14px;}
 .view{display:none;}.view.active{display:block;}
+.vhero{background:var(--cream);display:flex;flex-direction:column;align-items:center;padding:22px 16px 6px;}
+.vheroVid{width:min(92vw,660px);aspect-ratio:1/1;object-fit:cover;border-radius:8px;box-shadow:0 24px 60px -28px rgba(23,22,15,.5);display:block;background:var(--card);}
+.vheroCap{margin-top:13px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--teal);text-transform:uppercase;}
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;max-width:1180px;margin:0 auto;padding:60px 30px 50px;}
 .hero .ey{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
 .hero .ey .l{width:44px;height:1px;background:var(--gold);}
@@ -228,6 +231,12 @@ footer{background:var(--cream);padding:56px 30px 40px;border-top:1px solid var(-
   <div class="searchbar" id="searchBar"><form onsubmit="return doSearch(event,'dsearchInput')"><input id="dsearchInput" type="search" placeholder="Search pieces&hellip;" autocomplete="off"><button type="submit" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg></button></form></div>
 
   <div class="view active" id="view-home">
+    <section class="vhero">
+      <video class="vheroVid" autoplay muted loop playsinline preload="auto" poster="img/greenhouse_poster.jpg">
+        <source src="img/zmg_greenhouse.mp4" type="video/mp4">
+      </video>
+      <div class="vheroCap"><span>Life, by your own hand.</span></div>
+    </section>
     <section class="hero">
       <div>
         <div class="ey"><span class="l"></span><span>NEW IN</span></div>
