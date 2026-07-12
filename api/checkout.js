@@ -31,9 +31,8 @@ module.exports = async (req, res) => {
     const origin = req.headers.origin || `https://${req.headers.host}`;
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
-      // No payment_method_types pin -> Stripe uses the methods enabled in the
-      // dashboard (Apple Pay, Cash App Pay, Amazon Pay, Link, cards...).
-      automatic_payment_methods: { enabled: true },
+      // No payment_method_types pin -> Stripe Checkout uses the methods enabled
+      // in the dashboard (Apple Pay, Cash App Pay, Amazon Pay, Link, cards...).
       line_items,
       shipping_address_collection: { allowed_countries: ['US', 'CA'] },
       success_url: `${origin}/success.html`,
