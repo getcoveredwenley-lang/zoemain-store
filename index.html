@@ -425,10 +425,15 @@ window.addEventListener('scroll',updateNav,{passive:true});
 window.addEventListener('resize',function(){sizeHero();updateNav();});
 sizeHero();updateNav();
 
-function showView(n){document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});var el=document.getElementById('view-'+n);if(el)el.classList.add('active');window.scrollTo(0,0);sizeHero();updateNav();}
+function showView(n,fromPop){document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});var el=document.getElementById('view-'+n);if(el)el.classList.add('active');window.scrollTo(0,0);sizeHero();updateNav();if(!fromPop&&n!=='product'){try{history.pushState({v:n},'');}catch(e){}}}
+// Browser back/forward steps through views instead of leaving the site
+window.addEventListener('popstate',function(e){var s=e.state;if(!s){showView('home',true);return;}
+  if(s.v==='product'&&s.id){var c=document.querySelector('.card[data-id="'+s.id+'"]');if(c){openProduct(c,true);}else{showView('shop',true);}}
+  else{showView(s.v||'home',true);}});
+try{history.replaceState({v:'home'},'');}catch(e){}
 var CURRENT=null;
 var SIZE='M';
-function openProduct(el){var d=el.dataset;CURRENT={id:d.id,name:d.name,price:parseFloat(d.pricev),img:d.img};
+function openProduct(el,fromPop){var d=el.dataset;CURRENT={id:d.id,name:d.name,price:parseFloat(d.pricev),img:d.img};
   document.getElementById('pdCode').textContent=d.code;
   document.getElementById('pdPrice').textContent=d.pricev;
   document.getElementById('pdName').textContent=d.name;
@@ -446,7 +451,8 @@ function openProduct(el){var d=el.dataset;CURRENT={id:d.id,name:d.name,price:par
   document.getElementById('dlSize').style.display=isJ?'none':'inline-block';
   document.getElementById('detailsPanel').classList.remove('open');document.getElementById('dtArrow').textContent='+';
   SIZE='M';resetSizeChips();
-  showView('product');
+  showView('product',true);
+  if(!fromPop){try{history.pushState({v:'product',id:d.id},'');}catch(e){}}
 }
 function pdSwap(el,u){document.getElementById('pdPhoto').src=u;var p=el.parentNode;p.querySelectorAll('.pd-th').forEach(function(t){t.classList.remove('on');});el.classList.add('on');}
 function toggleDetails(){var p=document.getElementById('detailsPanel');p.classList.toggle('open');document.getElementById('dtArrow').textContent=p.classList.contains('open')?'\u2212':'+';}
