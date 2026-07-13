@@ -3,9 +3,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Server-side source of truth for prices (never trust the client)
 const CATALOG = {
-  'green-hoodie':  { name: 'Heavyweight Hoodie — Green', price: 8000 },
-  'blush-hoodie':  { name: 'Heavyweight Hoodie — Blush', price: 8000 },
-  'bone-tee':      { name: 'Heavyweight Tee — Bone',     price: 5000 },
+  'green-hoodie':  { name: 'Heavyweight Hoodie / Green', price: 8000 },
+  'blush-hoodie':  { name: 'Heavyweight Hoodie / Blush', price: 8000 },
+  'bone-tee':      { name: 'Heavyweight Tee / Bone',     price: 5000 },
   'zoe-pendant':   { name: 'Zoe Pendant',                price: 5000 },
   'goat-pendant':  { name: 'Goat Pendant',               price: 5000 },
 };
